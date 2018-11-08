@@ -24,8 +24,11 @@ img_path = '1.jpg'
 img = image.load_img(img_path, target_size=(28,28),grayscale=True)
 
 x = image.img_to_array(img)
-x=x.reshape(1,784)
+
+
+x = np.expand_dims(x, axis=0)
 x = 255 - x
+x/=255
 
 
 print(x)
@@ -34,15 +37,8 @@ print(x)
 
 
 
-find = model.predict(x)
-find=np_utils.to_categorical(find)
-print(find)
-fl=list(find)
-print('=======Відповідь=========')
-for (index,i) in enumerate(fl[0]):
-    if i[1]==1:
-        result=index
-        print(result)
+prediction = model.predict(x)
+print(np.argmax(prediction))
 
 
 
